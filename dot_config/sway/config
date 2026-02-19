@@ -1,0 +1,65 @@
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+
+set $mod Mod4
+set $term foot -e tmux
+set $rofi_cmd rofi -terminal '$term'
+
+### Output
+
+output * bg #000000 solid_color
+output * scale 1.2
+
+exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec ~/.local/bin/autotiling
+
+### Input
+
+input type:keyboard {
+    xkb_layout de
+    xkb_variant nodeadkeys
+}
+
+### Style
+
+default_border pixel 2
+gaps inner 2
+gaps outer 1
+
+# class                 border  background text    indicator child_border
+client.focused          #cc0000 #1a1a1a    #ffffff #cc0000   #cc0000
+client.unfocused        #333333 #1a1a1a    #888888 #333333   #333333
+client.focused_inactive #333333 #1a1a1a    #888888 #333333   #333333
+
+### Key bindings
+
+    bindsym $mod+q exec $term
+    bindsym $mod+c kill
+    bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh
+    bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh
+    bindsym $mod+e exec flatpak run com.brave.Browser
+    bindsym $mod+b exec blueman-manager
+    bindsym $mod+n exec nm-connection-editor
+    bindsym $mod+j exec foot -e tmux new-session nvim
+
+    floating_modifier $mod normal
+
+### Movement
+
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+### Scratchpad
+
+    bindsym $mod+Shift+minus move scratchpad
+    bindsym $mod+minus scratchpad show
+
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
