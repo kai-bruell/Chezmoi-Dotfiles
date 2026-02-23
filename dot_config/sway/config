@@ -11,6 +11,9 @@ set $rofi_cmd rofi -terminal '$term'
 output * bg #000000 solid_color
 output * scale 1.2
 
+output eDP-1 pos 0 0
+output DP-4 pos 1600 0
+
 exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 exec ~/.local/bin/autotiling
 
