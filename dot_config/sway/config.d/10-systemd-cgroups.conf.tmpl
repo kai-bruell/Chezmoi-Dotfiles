@@ -8,6 +8,6 @@
 # Therefore it's recommended to supplement the script with use of systemd user
 # services for such background apps.
 #
-{{ if ne .chezmoi.osRelease.id "nixos" -}}
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
 exec /usr/libexec/sway-systemd/assign-cgroups.py
 {{ end -}}

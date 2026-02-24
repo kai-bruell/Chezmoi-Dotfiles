@@ -12,16 +12,11 @@
         "sway/scratchpad"
     ],
     "modules-center": [],
-    "modules-right": [
-                "cpu",
-        "temperature",
-        "memory",
-        "backlight",
-        "pulseaudio",
-        "tray",
-        "battery",
-        "clock"
-    ],
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+    "modules-right": ["cpu", "temperature", "memory", "backlight", "pulseaudio", "tray", "battery", "clock"],
+{{ else -}}
+    "modules-right": ["cpu", "temperature", "memory", "pulseaudio", "tray", "clock"],
+{{ end -}}
     // Modules configuration
     // Dynamische Workspaces pro Monitor:
     // Monitor 0: 1-9, Monitor 1: 11-19, Monitor 2: 21-29, ...
@@ -128,6 +123,7 @@
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["", "", ""]
     },
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
     "backlight": {
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
@@ -151,6 +147,7 @@
     "battery#bat2": {
         "bat": "BAT2"
     },
+{{ end -}}
     "power-profiles-daemon": {
       "format": "{icon}",
       "tooltip-format": "Power profile: {profile}\nDriver: {driver}",

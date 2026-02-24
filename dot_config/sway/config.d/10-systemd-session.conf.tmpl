@@ -28,6 +28,6 @@
 #
 # 5. Stop the target and unset the variables when the compositor exits.
 #
-{{ if ne .chezmoi.osRelease.id "nixos" -}}
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
 exec /usr/libexec/sway-systemd/session.sh
 {{ end -}}
