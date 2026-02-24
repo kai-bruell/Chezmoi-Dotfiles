@@ -11,11 +11,19 @@ set $rofi_cmd rofi -terminal '$term'
 output * bg #000000 solid_color
 output * scale 1.2
 
+{{ if ne .chezmoi.osRelease.id "nixos" -}}
 output eDP-1 pos 0 0
 output DP-4 pos 1600 0
 
 exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+{{ end -}}
+
+{{ if eq .chezmoi.osRelease.id "nixos" -}}
+exec autotiling
+exec waybar
+{{ else -}}
 exec ~/.local/bin/autotiling
+{{ end -}}
 
 ### Input
 
@@ -65,4 +73,9 @@ client.focused_inactive #333333 #1a1a1a    #888888 #333333   #333333
     bindsym $mod+Shift+minus move scratchpad
     bindsym $mod+minus scratchpad show
 
+{{ if eq .chezmoi.osRelease.id "nixos" -}}
+include /etc/sway/config.d/*.conf
+include ~/.config/sway/config.d/*.conf
+{{ else -}}
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+{{ end -}}
