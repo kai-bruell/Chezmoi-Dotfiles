@@ -19,7 +19,8 @@ send_notification() {
 if [ -n "$WAYLAND_DISPLAY" ]; then
     # Wayland: use grim + slurp
     if command -v grim &> /dev/null && command -v slurp &> /dev/null; then
-        if grim -g "$(slurp)" "$FILENAME" && [ -f "$FILENAME" ]; then
+        SELECTION=$(slurp </dev/null) || exit 0
+        if grim -g "$SELECTION" "$FILENAME" && [ -f "$FILENAME" ]; then
             echo "Screenshot saved to: $FILENAME"
             send_notification
         else

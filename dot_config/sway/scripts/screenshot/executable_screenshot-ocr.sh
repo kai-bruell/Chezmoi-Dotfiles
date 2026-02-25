@@ -47,7 +47,8 @@ send_notification() {
 echo "Select area for OCR..."
 if [ -n "$WAYLAND_DISPLAY" ]; then
     if command -v grim &> /dev/null && command -v slurp &> /dev/null; then
-        grim -g "$(slurp)" "$TEMP_FILE" || exit 1
+        SELECTION=$(slurp </dev/null) || exit 1
+        grim -g "$SELECTION" "$TEMP_FILE" || exit 1
     else
         echo "Error: grim and slurp required for Wayland"
         echo "Install with: sudo pacman -S grim slurp"
