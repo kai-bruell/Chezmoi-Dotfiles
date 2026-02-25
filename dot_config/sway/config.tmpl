@@ -70,6 +70,18 @@ client.focused_inactive #333333 #1a1a1a    #888888 #333333   #333333
     bindsym $mod+Shift+minus move scratchpad
     bindsym $mod+minus scratchpad show
 
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+### Fullscreen-Toggle
+    bindsym $mod+F11 fullscreen toggle
+
+### Passthrough-Mode (z.B. fuer Moonlight: alle Keys an die App weiterleiten)
+### Aktivieren: $mod+F12 | Deaktivieren: $mod+F12
+    bindsym $mod+F12 mode "passthrough"
+    mode "passthrough" {
+        bindsym $mod+F12 mode "default"
+    }
+
+{{ end -}}
 {{ if eq .chezmoi.osRelease.id "nixos" -}}
 include /etc/sway/config.d/*.conf
 include ~/.config/sway/config.d/*.conf
