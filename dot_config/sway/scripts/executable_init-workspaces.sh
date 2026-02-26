@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # init-workspaces.sh - Setzt initiale Workspaces pro Monitor
 # Monitor 0: Workspace 1, Monitor 1: Workspace 11, Monitor 2: Workspace 21, ...
 

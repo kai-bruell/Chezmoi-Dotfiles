@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Screenshot tool with area selection for Arch Linux
 # Supports both X11 and Wayland

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Starte rofi im drun-Modus mit dem gleichen Theme wie tmux-session-picker
 rofi -show drun -theme ~/.config/sway/scripts/launcher.rasi

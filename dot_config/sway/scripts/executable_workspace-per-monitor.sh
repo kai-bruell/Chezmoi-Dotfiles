@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # workspace-per-monitor.sh - Dynamische unabhängige Workspaces pro Monitor
 #
 # Jeder Monitor bekommt eigene Workspaces 1-9:

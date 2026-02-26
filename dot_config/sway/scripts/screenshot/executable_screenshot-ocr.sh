@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Screenshot OCR tool for Arch Linux
 # Takes a screenshot, performs OCR, and copies text to clipboard

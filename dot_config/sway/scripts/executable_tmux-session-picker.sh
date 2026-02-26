@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Hole alle tmux sessions
 sessions=$(tmux list-sessions -F "#S" 2>/dev/null)
