@@ -11,7 +11,7 @@
         "sway/mode",
         "sway/scratchpad"
     ],
-    "modules-center": [],
+    "modules-center": ["custom/ip"],
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
     "modules-right": ["cpu", "temperature", "memory", "backlight", "pulseaudio", "tray", "battery", "clock"],
 {{ else -}}
@@ -108,8 +108,13 @@
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
     },
+    "custom/ip": {
+        "exec": "ip -4 addr show scope global | grep -oP '(?<=inet )\\d+\\.\\d+\\.\\d+\\.\\d+' | head -1",
+        "interval": 30,
+        "format": " {}"
+    },
     "cpu": {
-        "format": "{usage}% ",
+        "format": "{usage}%",
         "tooltip": false
     },
     "memory": {

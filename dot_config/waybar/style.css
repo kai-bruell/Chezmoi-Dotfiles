@@ -76,6 +76,7 @@ button:hover {
     box-shadow: none;
 }
 
+#custom-ip,
 #clock,
 #battery,
 #cpu,
@@ -110,6 +111,12 @@ button:hover {
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
     margin-right: 0;
+}
+
+#custom-ip {
+    background-color: #1a1a2e;
+    color: #00d4ff;
+    font-weight: bold;
 }
 
 #clock {
