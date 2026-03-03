@@ -9,7 +9,7 @@ set $rofi_cmd rofi -terminal '$term'
 ### Output
 
 output * bg #000000 solid_color
-output * scale 1.2
+output * scale 1.2 scale_filter nearest
 
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
 output eDP-1 pos 0 0
@@ -46,7 +46,7 @@ client.focused_inactive #333333 #1a1a1a    #888888 #333333   #333333
     bindsym $mod+c kill
     bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh
     bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh
-    bindsym $mod+e exec flatpak run com.brave.Browser
+    bindsym $mod+e exec flatpak run org.mozilla.firefox
     bindsym $mod+b exec blueman-manager
     bindsym $mod+n exec nm-connection-editor
     bindsym $mod+j exec foot -e tmux new-session nvim
