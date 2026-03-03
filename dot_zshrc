@@ -23,6 +23,14 @@ git_prompt_info() { }
 # Case-insensitive Tab-Completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
+# World-writable dirs: gelb statt blau-auf-grün
+_CUSTOM_COLORS="ow=01;33:tw=01;33:*.mov=00"
+LS_COLORS="$LS_COLORS:$_CUSTOM_COLORS"
+export LS_COLORS
+_ZSH_COLORS="${_CUSTOM_COLORS}:${LS_COLORS}"
+zstyle ':completion:*:default' list-colors ${(s.:.)_ZSH_COLORS}
+unset _CUSTOM_COLORS _ZSH_COLORS
+
 # Aliases
 alias ll="ls -la"
 alias ..="cd .."
