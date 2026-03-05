@@ -1,0 +1,12 @@
+[Unit]
+Description=Mic Mute Guard – Hardware-Mute Sync für Waybar
+After=pipewire.service pipewire-pulse.service
+Wants=pipewire-pulse.service
+
+[Service]
+ExecStart=%h/.config/waybar/mic-mute-guard.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

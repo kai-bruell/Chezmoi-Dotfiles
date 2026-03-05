@@ -13,14 +13,14 @@
     ],
     "modules-center": ["custom/ip"],
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
-    "modules-right": ["pulseaudio", "cpu", "temperature", "memory", "tray", "battery", "clock"],
+    "modules-right": ["custom/recording", "pulseaudio", "cpu", "temperature", "memory", "tray", "battery", "clock"],
 {{ else -}}
     "modules-right": ["pulseaudio", "cpu", "temperature", "memory", "tray", "clock"],
 {{ end -}}
     // Modules configuration
-    // Dynamische Workspaces pro Monitor:
+    // Dynamic workspaces per monitor:
     // Monitor 0: 1-9, Monitor 1: 11-19, Monitor 2: 21-29, ...
-    // all-outputs: false zeigt nur Workspaces des eigenen Monitors
+    // all-outputs: false shows only workspaces of the current monitor
     "sway/workspaces": {
         "disable-scroll": false,
         "all-outputs": false,
@@ -212,6 +212,16 @@
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+    "custom/recording": {
+        "exec": "$HOME/.config/waybar/recording-ctl.sh",
+        "return-type": "json",
+        "interval": 1,
+        "signal": 8,
+        "format": "{}",
+        "on-click-right": "$HOME/.config/waybar/recording-ctl.sh context-menu"
+    },
+{{ end -}}
     "custom/power": {
         "format" : "⏻ ",
 		"tooltip": false,

@@ -71,6 +71,10 @@ client.focused_inactive #333333 #1a1a1a    #888888 #333333   #333333
     bindsym $mod+minus scratchpad show
 
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
+### Recording
+    bindsym $mod+r       exec ~/.config/waybar/recording-ctl.sh toggle-rec
+    bindsym $mod+Shift+r exec ~/.config/waybar/recording-ctl.sh context-menu
+
 ### Fullscreen-Toggle
     bindsym $mod+F11 fullscreen toggle
 

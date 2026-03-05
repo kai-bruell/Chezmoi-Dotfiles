@@ -1,0 +1,9 @@
+{{ if ne .chezmoi.osRelease.id "fedora" -}}
+.config/waybar/recording-ctl.sh
+.config/waybar/mic-mute-guard.py
+.config/waybar/record-scripts
+.config/systemd/user/mic-mute-guard.service
+.config/pipewire/pipewire.conf.d/10-waybar-sinks.conf
+run_once_after_enable-mic-mute-guard.sh
+run_onchange_after_pipewire-reload.sh
+{{ end -}}

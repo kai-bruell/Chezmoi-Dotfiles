@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkMenu" id="menu">
+    <child>
+      <object class="GtkMenuItem" id="select_mic">
+        <property name="label">Select Microphone</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="select_input">
+        <property name="label">Select Audio Input</property>
+      </object>
+    </child>
+  </object>
+</interface>

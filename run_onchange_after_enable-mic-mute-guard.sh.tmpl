@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# mic-mute-guard.py: {{ include "dot_config/waybar/executable_mic-mute-guard.py" | sha256sum }}
+systemctl --user daemon-reload
+systemctl --user enable --now mic-mute-guard.service
+systemctl --user restart mic-mute-guard.service
