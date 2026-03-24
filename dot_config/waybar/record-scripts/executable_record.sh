@@ -27,7 +27,7 @@ trap cleanup EXIT INT TERM
 args=()
 [ -n "$WF_OUTPUT" ] && args+=(-o "$WF_OUTPUT")
 export LIBVA_DRIVER_NAME=iHD
-args+=(-c h264_vaapi -d /dev/dri/renderD128 --no-dmabuf -p qp=28 -p bf=0 -D)
+args+=(-r 30 -c h264_vaapi -d /dev/dri/renderD128 --no-dmabuf -p qp=28 -p bf=0 -D)
 
 case "$MODE" in
     local)
