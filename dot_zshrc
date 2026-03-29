@@ -34,8 +34,9 @@ unset _CUSTOM_COLORS _ZSH_COLORS
 # Aliases
 alias ll="ls -la"
 alias ..="cd .."
+alias rm="trash-put"
 alias start-webserver="python3 -m http.server"
-show-image() { flatpak run --file-forwarding org.gnome.gThumb @@ "$(realpath "${1:-.}")" @@ 2>/dev/null; }
+show-image() { flatpak run --filesystem=host org.gnome.gThumb "$(realpath "${1:-.}")" 2>/dev/null; }
 
 # Toolbox/Distrobox indicator
 if [ -f /run/.containerenv ]; then
