@@ -36,6 +36,15 @@ alias ll="ls -la"
 alias ..="cd .."
 alias rm="trash-put"
 alias start-webserver="python3 -m http.server"
+unalias md 2>/dev/null
+md() {
+    [[ -z "$1" ]] && { echo "Usage: md <file.md>"; return 1; }
+    pkill -f "grip .* 6419" 2>/dev/null
+    sleep 0.3
+    grip "$1" 6419 &>/dev/null &!
+    sleep 0.5
+    flatpak run org.mozilla.firefox --new-tab http://localhost:6419 &>/dev/null &!
+}
 show-image() { flatpak run --filesystem=host org.gnome.gThumb "$(realpath "${1:-.}")" 2>/dev/null; }
 
 # Toolbox/Distrobox indicator
