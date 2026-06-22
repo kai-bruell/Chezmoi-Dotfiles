@@ -14,3 +14,13 @@ vim.cmd('highlight StatusLineNC guibg=#2a2a2a guifg=#808080 ctermbg=235 ctermfg=
 
 -- Clipboard Support
 vim.opt.clipboard = "unnamedplus"
+
+-- Indentation JSON
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "json",
+  callback = function()
+    vim.opt_local.tabstop = 2      -- Ein Tab zählt als 2 Leerzeichen
+    vim.opt_local.shiftwidth = 2   -- Einrückung mit > oder < beträgt 2 Leerzeichen
+    vim.opt_local.expandtab = true  -- Wandelt Tabs in Leerzeichen um
+  end,
+})
