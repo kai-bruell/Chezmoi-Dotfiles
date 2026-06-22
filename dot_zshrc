@@ -34,6 +34,7 @@ unset _CUSTOM_COLORS _ZSH_COLORS
 # Aliases
 alias ll="ls -la"
 alias ..="cd .."
+alias drugga="~/.config/sway/scripts/send_print_command_drugga.sh"
 alias rm="trash-put"
 alias start-webserver="python3 -m http.server"
 unalias md 2>/dev/null

@@ -52,6 +52,13 @@ client.focused_inactive #333333 #1a1a1a    #888888 #333333   #333333
     bindsym $mod+j exec foot -e tmux new-session nvim
 
     floating_modifier $mod normal
+
+	f
+
+# Druckbefehl für markierte/aktuelle Datei über ein Tastenkürzel (Beispiel: Mod+Shift+P)
+# Erfordert die Übergabe des Dateipfads (z.B. über einen Dateimanager oder ein Auswahl-Skript)
+bindsym $mod+Shift+p exec ~/.config/sway/scripts/executable_send_print_command_drugga.sh
+
 ### Movement
 
     bindsym $mod+Left focus left
