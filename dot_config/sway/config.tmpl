@@ -48,6 +48,21 @@ client.focused          #cc0000 #1a1a1a    #ffffff #cc0000   #cc0000
 client.unfocused        #333333 #1a1a1a    #888888 #333333   #333333
 client.focused_inactive #333333 #1a1a1a    #888888 #333333   #333333
 
+
+
+
+### Auto Assign Windows to Workspaces
+
+# Flatpak Firefox
+assign [app_id="org.mozilla.firefox"] workspace 1
+
+# Terminals
+assign [app_id="foot"] workspace 2
+
+# Nvim (Neovim läuft im Terminal, daher braucht es eine eigene app_id)
+assign [app_id="nvim_term"] workspace 3
+
+
 ### Key bindings
 
     bindsym $mod+q exec $term
