@@ -1,22 +1,15 @@
-# WHOLE REFACTOR OF THIS DOCUMENTATION IN PROGRESS.
-
-# KEYBINDING NAMESPACES included on top of each Keybinding, for future Array interpretation, due to machine File reading.
-### `set` and `output`  
-
+### Variables
 set $mod Mod4
 set $term foot -e tmux
 set $rofi_cmd rofi -terminal '$term'
 
-### Output 
-### Here we need /n textblock.
-
-output * bg #000000 solid_color
+### Output & Display
+output * bg ~/.config/sway/thinknix-d.svg fill
 output * scale 1.0 scale_filter nearest
 
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
 output eDP-1 pos 0 0
 output DP-4 pos 1920 0
-
 exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 {{ end -}}
 
@@ -25,113 +18,74 @@ exec waybar
 {{ end -}}
 
 ### Input
-
 input type:keyboard {
     xkb_layout de
     xkb_variant nodeadkeys
 }
 
-### Style
-
-
-### WALLPAPER
-output * bg ~/.config/sway/thinknix-d.svg fill
-
-
-
+### Appearance
 default_border pixel 2
 gaps inner 2
 gaps outer 1
 
-# class                 border  background text    indicator child_border
-client.focused          #cc0000 #1a1a1a    #ffffff #cc0000   #cc0000
-client.unfocused        #333333 #1a1a1a    #888888 #333333   #333333
-client.focused_inactive #333333 #1a1a1a    #888888 #333333   #333333
+# class                 border  background text     indicator child_border
+client.focused          #cc0000 #1a1a1a    #ffffff  #cc0000   #cc0000
+client.unfocused        #333333 #1a1a1a    #888888  #333333   #333333
+client.focused_inactive #333333 #1a1a1a    #888888  #333333   #333333
 
+floating_modifier $mod normal
 
+### Keybindings: Application Launchers
 
+# Fester Workspace-Start
+bindsym $mod+e exec swaymsg "workspace 1; exec flatpak run org.mozilla.firefox"
+bindsym $mod+q exec swaymsg "workspace 2; exec $term"
+bindsym $mod+j exec swaymsg "workspace 3; exec foot -e tmux new-session nvim"
 
-### Auto Assign Windows to Workspaces
+# Start auf aktuellem Workspace
+bindsym $mod+Shift+e exec flatpak run org.mozilla.firefox
+bindsym $mod+Shift+q exec foot
+bindsym $mod+Shift+j exec foot -e nvim
 
-# Flatpak Firefox
-assign [app_id="org.mozilla.firefox"] workspace 1
-
-# Terminals
-assign [app_id="foot"] workspace 2
-
-# Nvim (Neovim läuft im Terminal, daher braucht es eine eigene app_id)
-assign [app_id="nvim_term"] workspace 3
-
-
-### Key bindings
-
-    bindsym $mod+q exec $term
-    bindsym $mod+c kill
-    bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh
-    bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh
-    bindsym $mod+e exec flatpak run org.mozilla.firefox
-    bindsym $mod+b exec blueman-manager
-    bindsym $mod+n exec nm-connection-editor
-    bindsym $mod+j exec foot -e tmux new-session nvim
-
-    bindsym $mod+m exec ~/.config/sway/scripts/toggle-monitor-light-on-off.sh
- 
-    # Lupe
-    bindsym --whole-window $mod+button2 exec ~/.config/sway/scripts/toggle-magnification.sh
-
-
-    # --- Auf aktuellem Workspace starten ---
-    bindsym $mod+Shift+e exec flatpak run org.mozilla.firefox
-    bindsym $mod+Shift+q exec foot
-    bindsym $mod+Shift+j exec foot -e nvim
-
-
-    floating_modifier $mod normal
-
-
-# Druckbefehl für markierte/aktuelle Datei über ein Tastenkürzel (Beispiel: Mod+Shift+P)
-# Erfordert die Übergabe des Dateipfads (z.B. über einen Dateimanager oder ein Auswahl-Skript)
+# System & Tools
+bindsym $mod+c kill
+bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh
+bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh
+bindsym $mod+b exec blueman-manager
+bindsym $mod+n exec nm-connection-editor
+bindsym $mod+m exec ~/.config/sway/scripts/toggle-monitor-light-on-off.sh
 bindsym $mod+Shift+p exec ~/.config/sway/scripts/executable_send_print_command_drugga.sh
 
-### Movement
+# Lupe (Maus)
+bindsym --whole-window $mod+button2 exec ~/.config/sway/scripts/toggle-magnification.sh
 
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+### Keybindings: Window Navigation & Movement
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
-### Scratchpad
+### Keybindings: Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
 
-    bindsym $mod+Shift+minus move scratchpad
-    bindsym $mod+minus scratchpad show
-
+### Conditional System Features
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
+# Fullscreen & Passthrough
+bindsym $mod+F11 fullscreen toggle
+bindsym $mod+F12 mode "passthrough"
 
-
-
-### Recording !!! WARNING: feature on hotkey removed due to hard drive overusage because of accidential execution due normal workflow. Please be careful to your Hardware. !!!
-
-
-
-#   bindsym $mod+r       exec ~/.config/waybar/recording-ctl.sh toggle-rec
-#    bindsym $mod+Shift+r exec ~/.config/waybar/recording-ctl.sh context-menu
-
-### Fullscreen-Toggle
-    bindsym $mod+F11 fullscreen toggle
-
-### Passthrough-Mode (z.B. fuer Moonlight: alle Keys an die App weiterleiten)
-### Aktivieren: $mod+F12 | Deaktivieren: $mod+F12
-    bindsym $mod+F12 mode "passthrough"
-    mode "passthrough" {
-        bindsym $mod+F12 mode "default"
-    }
-
+mode "passthrough" {
+    bindsym $mod+F12 mode "default"
+}
 {{ end -}}
+
+### Includes
 {{ if eq .chezmoi.osRelease.id "nixos" -}}
 include /etc/sway/config.d/*.conf
 include ~/.config/sway/config.d/*.conf
