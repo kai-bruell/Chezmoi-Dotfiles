@@ -80,6 +80,12 @@ assign [app_id="nvim_term"] workspace 3
     bindsym --whole-window $mod+button2 exec ~/.config/sway/scripts/toggle-magnification.sh
 
 
+    # --- Auf aktuellem Workspace starten ---
+    bindsym $mod+Shift+e exec flatpak run org.mozilla.firefox
+    bindsym $mod+Shift+q exec foot
+    bindsym $mod+Shift+j exec foot -e nvim
+
+
     floating_modifier $mod normal
 
 
