@@ -1,19 +1,11 @@
 ### Variablen
 set $mod Mod4
-# -a foot-terminal und -a foot-nvim vergeben eindeutige app_ids für die automatische Workspace-Zuordnung
 set $term foot -a foot-terminal -e tmux
 set $rofi_cmd rofi -terminal '$term'
 
 ### Arbeitsflächen- & Fensterverhalten
-workspace_auto_back_and_forth yes
 hide_edge_borders smart
 smart_gaps on
-
-### Fest zugeordnete Arbeitsflächen (Automatische Zuordnung beim Start)
-assign [app_id="org.mozilla.firefox"] workspace number 1
-assign [app_id="foot-terminal"] workspace number 2
-assign [app_id="foot-nvim"] workspace number 3
-assign [app_id="thunar"] workspace number 4
 
 ### Bildschirme & Anzeigen
 output * bg ~/.config/sway/thinknix-d.svg fill
@@ -28,12 +20,6 @@ exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 {{ if eq .chezmoi.osRelease.id "nixos" -}}
 exec waybar
 {{ end -}}
-
-### Eingabegeräte
-input type:keyboard {
-    xkb_layout de
-    xkb_variant nodeadkeys
-}
 
 ### Erscheinungsbild
 default_border pixel 2
@@ -52,46 +38,47 @@ bindsym $mod+f exec swaymsg "workspace number 4; exec thunar"
 
 ### Tastenkürzel: Anwendungsstarter (Auf aktuellem Workspace starten)
 bindsym $mod+Shift+e exec flatpak run org.mozilla.firefox
-bindsym $mod+Shift+q exec foot
+bindsym $mod+Shift+q exec $term
 bindsym $mod+Shift+j exec foot -e nvim
+bindsym $mod+Shift+f exec thunar
 
 ### Tastenkürzel: System & Dienstprogramme
-bindsym $mod+c kill # Fenster schließen
-bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh # Anwendungsmenü (Rofi)
-bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh # Tmux Session Picker
-bindsym $mod+b exec blueman-manager # Bluetooth-Verwaltung
-bindsym $mod+n exec nm-connection-editor # Netzwerk-Verwaltung
-bindsym $mod+m exec ~/.config/sway/scripts/toggle-monitor-light-on-off.sh # Monitorlicht umschalten
-bindsym $mod+Shift+p exec ~/.config/sway/scripts/send_print_command_drugga.sh # Druckbefehl senden
+bindsym $mod+c kill
+bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh
+bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh
+bindsym $mod+b exec blueman-manager
+bindsym $mod+n exec nm-connection-editor
+bindsym $mod+m exec ~/.config/sway/scripts/toggle-monitor-light-on-off.sh
+bindsym $mod+Shift+p exec ~/.config/sway/scripts/send_print_command_drugga.sh
 
 # Interaktives Hilfesystem
-bindsym $mod+h exec ~/.config/sway/scripts/keybind_help_page_drun-launcher.sh # Tastenkürzel-Hilfemenü
+bindsym $mod+h exec ~/.config/sway/scripts/keybind_help_page_drun-launcher.sh
 
 # Lupe (Maus)
-bindsym --whole-window $mod+button2 exec ~/.config/sway/scripts/toggle-magnification.sh # Bildschirm-Lupe umschalten
+bindsym --whole-window $mod+button2 exec ~/.config/sway/scripts/toggle-magnification.sh
 
 ### Layout-Splitting
-bindsym $mod+g splith  # Horizontal splitten (nebeneinander)
-bindsym $mod+v splitv  # Vertikal splitten (untereinander)
+bindsym $mod+g splith
+bindsym $mod+v splitv
 
 ### Tastenkürzel: Navigation & Fensterbewegung innerhalb des Workspaces
-bindsym $mod+Left focus left   # Fokus nach links
-bindsym $mod+Down focus down   # Fokus nach unten
-bindsym $mod+Up focus up       # Fokus nach oben
-bindsym $mod+Right focus right # Fokus nach rechts
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-bindsym $mod+Shift+Left move left   # Kachel nach links tauschen
-bindsym $mod+Shift+Down move down   # Kachel nach unten tauschen
-bindsym $mod+Shift+Up move up       # Kachel nach oben tauschen
-bindsym $mod+Shift+Right move right # Kachel nach rechts tauschen
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
 # Größe anpassen (Resize Modus)
 bindsym $mod+r mode "resize"
 mode "resize" {
-    bindsym Left resize shrink width 10 px
-    bindsym Right resize grow width 10 px
-    bindsym Up resize shrink height 10 px
-    bindsym Down resize grow height 10 px
+    bindsym l resize shrink width 10 px
+    bindsym k resize grow height 10 px
+    bindsym j resize shrink height 10 px
+    bindsym h resize grow width 10 px
     
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -99,8 +86,8 @@ mode "resize" {
 
 ### Bedingte System-Funktionen (Chezmoi OS-Unterscheidung)
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
-bindsym $mod+F11 fullscreen toggle # Vollbild umschalten
-bindsym $mod+F12 mode "passthrough" # Tastenkürzel-Durchleitung aktivieren
+bindsym $mod+F11 fullscreen toggle
+bindsym $mod+F12 mode "passthrough"
 
 mode "passthrough" {
     bindsym $mod+F12 mode "default"
@@ -114,3 +101,12 @@ include ~/.config/sway/config.d/*.conf
 {{ else -}}
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
 {{ end -}}
+
+### Eingabegeräte & Custom Layout (Ganz am Ende, um System-Includes zu überschreiben)
+input type:keyboard {
+    xkb_layout custom_keys
+    xkb_variant brackets
+    repeat_delay 200
+    repeat_rate 40
+}
+

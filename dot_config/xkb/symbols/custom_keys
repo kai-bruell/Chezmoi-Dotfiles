@@ -1,0 +1,23 @@
+default partial alphanumeric_keys
+xkb_symbols "brackets" {
+    include "de(nodeadkeys)"
+
+    // CAPS-LOCK als Level3-Schalter
+    key <CAPS> { [ ISO_Level3_Shift ] };
+
+    // --- Linke Hand: Klammern auf (THREE_LEVEL verhindert Rollover-Flackern auf 'qwe') ---
+    key <AD01> { type[Group1]="THREE_LEVEL", [ q, Q, braceleft ] };                      // CAPS + q = {
+    key <AD02> { type[Group1]="THREE_LEVEL", [ w, W, parenleft ] };                      // CAPS + w = (
+    key <AD03> { type[Group1]="THREE_LEVEL", [ e, E, bracketleft ] };                    // CAPS + e = [
+
+    // --- Rechte Hand: Klammern zu (THREE_LEVEL verhindert Rollover-Flackern auf 'p/ü/+') ---
+    key <AD10> { type[Group1]="THREE_LEVEL", [ p, P, bracketright ] };                   // CAPS + p = ]
+    key <AD11> { type[Group1]="THREE_LEVEL", [ udiaeresis, Udiaeresis, parenright ] };   // CAPS + ü = )
+    key <AD12> { type[Group1]="THREE_LEVEL", [ plus, asterisk, braceright ] };           // CAPS + + = }
+
+    // --- Navigation (HJKL) ---
+    key <AC06> { type[Group1]="THREE_LEVEL", [ h, H, Home ] };                           // CAPS + h = Pos1
+    key <AC07> { type[Group1]="THREE_LEVEL", [ j, J, Page_Down ] };                      // CAPS + j = Bild-
+    key <AC08> { type[Group1]="THREE_LEVEL", [ k, K, Page_Up ] };                        // CAPS + k = Bild+
+    key <AC09> { type[Group1]="THREE_LEVEL", [ l, L, End ] };                            // CAPS + l = Ende
+};
