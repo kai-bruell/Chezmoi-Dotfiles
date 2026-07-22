@@ -44,6 +44,12 @@ bindsym $mod+e exec swaymsg "workspace 1; exec flatpak run org.mozilla.firefox" 
 bindsym $mod+q exec swaymsg "workspace 2; exec $term" # Terminal (tmux) auf Workspace 2
 bindsym $mod+j exec swaymsg "workspace 3; exec foot -e tmux new-session nvim" # Nvim auf Workspace 3
 
+### Application Workspace Allocation
+assign [app_id="thunar"] workspace number 4
+for_window [app_id="thunar"] focus
+
+
+
 bindsym $mod+Shift+e exec flatpak run org.mozilla.firefox # Firefox auf aktuellem Workspace
 bindsym $mod+Shift+q exec foot # Terminal auf aktuellem Workspace
 bindsym $mod+Shift+j exec foot -e nvim # Nvim auf aktuellem Workspace
