@@ -1,6 +1,6 @@
 ### Variablen
 set $mod Mod4
-# -a foot-terminal vergibt eine eindeutige app_id, damit Sway Tmux gezielt zuordnen kann
+# -a foot-terminal und -a foot-nvim vergeben eindeutige app_ids für die automatische Workspace-Zuordnung
 set $term foot -a foot-terminal -e tmux
 set $rofi_cmd rofi -terminal '$term'
 
@@ -9,22 +9,11 @@ workspace_auto_back_and_forth yes
 hide_edge_borders smart
 smart_gaps on
 
-### Fest zugeordnete Arbeitsflächen & automatischer Fokus
-# Firefox (Flatpak) -> Workspace 1
+### Fest zugeordnete Arbeitsflächen (Automatische Zuordnung beim Start)
 assign [app_id="org.mozilla.firefox"] workspace number 1
-for_window [app_id="org.mozilla.firefox"] focus
-
-# Terminal (Tmux) -> Workspace 2
 assign [app_id="foot-terminal"] workspace number 2
-for_window [app_id="foot-terminal"] focus
-
-# Neovim in Tmux -> Workspace 3
 assign [app_id="foot-nvim"] workspace number 3
-for_window [app_id="foot-nvim"] focus
-
-# Thunar Dateimanager -> Workspace 4
 assign [app_id="thunar"] workspace number 4
-for_window [app_id="thunar"] focus
 
 ### Bildschirme & Anzeigen
 output * bg ~/.config/sway/thinknix-d.svg fill
@@ -55,15 +44,13 @@ client.focused          #cc0000 #1a1a1a    #ffffff  #cc0000   #cc0000
 client.unfocused        #333333 #1a1a1a    #888888  #333333   #333333
 client.focused_inactive #333333 #1a1a1a    #888888  #333333   #333333
 
-floating_modifier $mod normal
+### Tastenkürzel: Anwendungsstarter (Springt zum Ziel-Workspace & startet App)
+bindsym $mod+e exec swaymsg "workspace number 1; exec flatpak run org.mozilla.firefox"
+bindsym $mod+q exec swaymsg "workspace number 2; exec $term"
+bindsym $mod+j exec swaymsg "workspace number 3; exec foot -a foot-nvim -e tmux new-session nvim"
+bindsym $mod+f exec swaymsg "workspace number 4; exec thunar"
 
-### Tastenkürzel: Anwendungsstarter (feste Zuordnung)
-bindsym $mod+e exec flatpak run org.mozilla.firefox # Startet Firefox (wird auf WS 1 verschoben & fokussiert)
-bindsym $mod+q exec $term # Startet Tmux-Terminal (wird auf WS 2 verschoben & fokussiert)
-bindsym $mod+j exec foot -a foot-nvim -e tmux new-session nvim # Startet Nvim mit app_id foot-nvim (wird auf WS 3 verschoben & fokussiert)
-bindsym $mod+f exec thunar # Startet Thunar (wird auf WS 4 verschoben & fokussiert)
-
-### Tastenkürzel: Anwendungsstarter (auf aktuellem Workspace)
+### Tastenkürzel: Anwendungsstarter (Auf aktuellem Workspace starten)
 bindsym $mod+Shift+e exec flatpak run org.mozilla.firefox
 bindsym $mod+Shift+q exec foot
 bindsym $mod+Shift+j exec foot -e nvim
@@ -72,18 +59,10 @@ bindsym $mod+Shift+j exec foot -e nvim
 bindsym $mod+c kill # Fenster schließen
 bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh # Anwendungsmenü (Rofi)
 bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh # Tmux Session Picker
-
-
-### TEST Splitting
-# bindsym $mod+b exec blueman-manager # Bluetooth-Verwaltung
-# Splitting-Richtung festlegen
-bindsym $mod+b splith  # Horizontal splitten (neben-einander)
-bindsym $mod+v splitv  # Vertikal splitten (unter-einander)
-
-
+bindsym $mod+b exec blueman-manager # Bluetooth-Verwaltung
 bindsym $mod+n exec nm-connection-editor # Netzwerk-Verwaltung
 bindsym $mod+m exec ~/.config/sway/scripts/toggle-monitor-light-on-off.sh # Monitorlicht umschalten
-bindsym $mod+Shift+p exec ~/.config/sway/scripts/executable_send_print_command_drugga.sh # Druckbefehl senden
+bindsym $mod+Shift+p exec ~/.config/sway/scripts/send_print_command_drugga.sh # Druckbefehl senden
 
 # Interaktives Hilfesystem
 bindsym $mod+h exec ~/.config/sway/scripts/keybind_help_page_drun-launcher.sh # Tastenkürzel-Hilfemenü
@@ -91,9 +70,20 @@ bindsym $mod+h exec ~/.config/sway/scripts/keybind_help_page_drun-launcher.sh # 
 # Lupe (Maus)
 bindsym --whole-window $mod+button2 exec ~/.config/sway/scripts/toggle-magnification.sh # Bildschirm-Lupe umschalten
 
-### Tastenkürzel: Layout & Fensterverwaltung
-bindsym $mod+Shift+space floating toggle # Schwebefenster-Modus umschalten
-bindsym $mod+space focus mode_toggle # Fokus zwischen Kacheln/Schwebefenster umschalten
+### Layout-Splitting
+bindsym $mod+g splith  # Horizontal splitten (nebeneinander)
+bindsym $mod+v splitv  # Vertikal splitten (untereinander)
+
+### Tastenkürzel: Navigation & Fensterbewegung innerhalb des Workspaces
+bindsym $mod+Left focus left   # Fokus nach links
+bindsym $mod+Down focus down   # Fokus nach unten
+bindsym $mod+Up focus up       # Fokus nach oben
+bindsym $mod+Right focus right # Fokus nach rechts
+
+bindsym $mod+Shift+Left move left   # Kachel nach links tauschen
+bindsym $mod+Shift+Down move down   # Kachel nach unten tauschen
+bindsym $mod+Shift+Up move up       # Kachel nach oben tauschen
+bindsym $mod+Shift+Right move right # Kachel nach rechts tauschen
 
 # Größe anpassen (Resize Modus)
 bindsym $mod+r mode "resize"
@@ -107,21 +97,6 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 
-### Tastenkürzel: Navigation & Fensterbewegung
-bindsym $mod+Left focus left # Fokus nach links
-bindsym $mod+Down focus down # Fokus nach unten
-bindsym $mod+Up focus up # Fokus nach oben
-bindsym $mod+Right focus right # Fokus nach rechts
-
-bindsym $mod+Shift+Left move left # Fenster nach links verschieben
-bindsym $mod+Shift+Down move down # Fenster nach unten verschieben
-bindsym $mod+Shift+Up move up # Fenster nach oben verschieben
-bindsym $mod+Shift+Right move right # Fenster nach rechts verschieben
-
-### Tastenkürzel: Scratchpad (Zwischenablage-Fenster)
-bindsym $mod+Shift+minus move scratchpad # Fenster ins Scratchpad bewegen
-bindsym $mod+minus scratchpad show # Scratchpad anzeigen/verstecken
-
 ### Bedingte System-Funktionen (Chezmoi OS-Unterscheidung)
 {{ if eq .chezmoi.osRelease.id "fedora" -}}
 bindsym $mod+F11 fullscreen toggle # Vollbild umschalten
@@ -132,7 +107,7 @@ mode "passthrough" {
 }
 {{ end -}}
 
-### Externe Konfigurationsdateien einbinden
+### Externe Konfigurationsdateien einbinden (Includes)
 {{ if eq .chezmoi.osRelease.id "nixos" -}}
 include /etc/sway/config.d/*.conf
 include ~/.config/sway/config.d/*.conf
