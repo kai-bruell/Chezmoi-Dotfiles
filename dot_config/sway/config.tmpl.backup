@@ -1,0 +1,118 @@
+### Variables
+set $mod Mod4
+set $term foot -e tmux
+set $rofi_cmd rofi -terminal '$term'
+
+### Workspace & Window Behavior
+workspace_auto_back_and_forth yes
+hide_edge_borders smart
+smart_gaps on
+
+### Output & Display
+output * bg ~/.config/sway/thinknix-d.svg fill
+output * scale 1.0 scale_filter nearest
+
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+output eDP-1 pos 0 0
+output DP-4 pos 1920 0
+exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+{{ end -}}
+
+{{ if eq .chezmoi.osRelease.id "nixos" -}}
+exec waybar
+{{ end -}}
+
+### Input
+input type:keyboard {
+    xkb_layout de
+    xkb_variant nodeadkeys
+}
+
+### Appearance
+default_border pixel 2
+gaps inner 2
+gaps outer 1
+
+client.focused          #cc0000 #1a1a1a    #ffffff  #cc0000   #cc0000
+client.unfocused        #333333 #1a1a1a    #888888  #333333   #333333
+client.focused_inactive #333333 #1a1a1a    #888888  #333333   #333333
+
+floating_modifier $mod normal
+
+### Keybindings: Application Launchers
+bindsym $mod+e exec swaymsg "workspace 1; exec flatpak run org.mozilla.firefox" # Firefox auf Workspace 1
+bindsym $mod+q exec swaymsg "workspace 2; exec $term" # Terminal (tmux) auf Workspace 2
+bindsym $mod+j exec swaymsg "workspace 3; exec foot -e tmux new-session nvim" # Nvim auf Workspace 3
+
+### Application Workspace Allocation
+assign [app_id="thunar"] workspace number 4
+for_window [app_id="thunar"] focus
+
+
+
+bindsym $mod+Shift+e exec flatpak run org.mozilla.firefox # Firefox auf aktuellem Workspace
+bindsym $mod+Shift+q exec foot # Terminal auf aktuellem Workspace
+bindsym $mod+Shift+j exec foot -e nvim # Nvim auf aktuellem Workspace
+
+bindsym $mod+c kill # Fenster schließen
+bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh # Application Launcher (Rofi)
+bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh # Tmux Session Picker
+bindsym $mod+b exec blueman-manager # Bluetooth Manager
+bindsym $mod+n exec nm-connection-editor # Network Manager
+bindsym $mod+m exec ~/.config/sway/scripts/toggle-monitor-light-on-off.sh # Monitor Licht an/aus
+bindsym $mod+Shift+p exec ~/.config/sway/scripts/executable_send_print_command_drugga.sh # Druckbefehl senden
+
+# Interactive Help System
+bindsym $mod+h exec ~/.config/sway/scripts/keybind_help_page_drun-launcher.sh # Keybinding Help Menu
+
+# Lupe (Maus)
+bindsym --whole-window $mod+button2 exec ~/.config/sway/scripts/toggle-magnification.sh # Lupe umschalten
+
+### Keybindings: Layout & Window Management
+bindsym $mod+Shift+space floating toggle # Floating Mode umschalten
+bindsym $mod+space focus mode_toggle # Fokus zwischen Floating/Tiling umschalten
+
+# Resize Mode
+bindsym $mod+r mode "resize" # Fenstergröße anpassen Mode
+mode "resize" {
+    bindsym Left resize shrink width 10 px
+    bindsym Right resize grow width 10 px
+    bindsym Up resize shrink height 10 px
+    bindsym Down resize grow height 10 px
+    
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+### Keybindings: Navigation & Movement
+bindsym $mod+Left focus left # Fokus nach links
+bindsym $mod+Down focus down # Fokus nach unten
+bindsym $mod+Up focus up # Fokus nach oben
+bindsym $mod+Right focus right # Fokus nach rechts
+
+bindsym $mod+Shift+Left move left # Fenster nach links verschieben
+bindsym $mod+Shift+Down move down # Fenster nach unten verschieben
+bindsym $mod+Shift+Up move up # Fenster nach oben verschieben
+bindsym $mod+Shift+Right move right # Fenster nach rechts verschieben
+
+### Keybindings: Scratchpad
+bindsym $mod+Shift+minus move scratchpad # Fenster in Scratchpad bewegen
+bindsym $mod+minus scratchpad show # Scratchpad anzeigen/verstecken
+
+### Conditional System Features
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+bindsym $mod+F11 fullscreen toggle # Vollbild umschalten
+bindsym $mod+F12 mode "passthrough" # Passthrough Mode aktivieren
+
+mode "passthrough" {
+    bindsym $mod+F12 mode "default"
+}
+{{ end -}}
+
+### Includes
+{{ if eq .chezmoi.osRelease.id "nixos" -}}
+include /etc/sway/config.d/*.conf
+include ~/.config/sway/config.d/*.conf
+{{ else -}}
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+{{ end -}}
