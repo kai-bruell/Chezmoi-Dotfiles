@@ -72,7 +72,15 @@ bindsym $mod+Shift+j exec foot -e nvim
 bindsym $mod+c kill # Fenster schließen
 bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh # Anwendungsmenü (Rofi)
 bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh # Tmux Session Picker
-bindsym $mod+b exec blueman-manager # Bluetooth-Verwaltung
+
+
+### TEST Splitting
+# bindsym $mod+b exec blueman-manager # Bluetooth-Verwaltung
+# Splitting-Richtung festlegen
+bindsym $mod+b splith  # Horizontal splitten (neben-einander)
+bindsym $mod+v splitv  # Vertikal splitten (unter-einander)
+
+
 bindsym $mod+n exec nm-connection-editor # Netzwerk-Verwaltung
 bindsym $mod+m exec ~/.config/sway/scripts/toggle-monitor-light-on-off.sh # Monitorlicht umschalten
 bindsym $mod+Shift+p exec ~/.config/sway/scripts/executable_send_print_command_drugga.sh # Druckbefehl senden
