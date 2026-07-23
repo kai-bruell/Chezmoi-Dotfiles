@@ -1,0 +1,11 @@
+[Unit]
+Description=Kanata Key Rebinding Daemon
+Documentation=https://github.com/jtroo/kanata
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/kanata -c %h/.config/kanata/kanata.kbd
+Restart=always
+
+[Install]
+WantedBy=default.target

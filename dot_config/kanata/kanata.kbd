@@ -1,0 +1,27 @@
+(defcfg
+  process-unmapped-keys yes
+  rapid-event-delay 0
+  concurrent-tap-hold yes
+)
+
+(defsrc
+  caps
+  q    w    e    p    [    ]
+  h    j    k    l
+)
+
+(deflayer base
+  @cap
+  q    w    e    p    [    ]
+  h    j    k    l
+)
+
+(deflayer layer_caps
+  _
+  S-8       S-9       (multi ralt 8) (multi ralt 9) (multi ralt 7) (multi ralt 0)
+  left      down      up             right
+)
+
+(defalias
+  cap (layer-toggle layer_caps)
+)
