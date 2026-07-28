@@ -1,5 +1,6 @@
 #!/bin/sh
 SCRIPT_DIR="$HOME/.config/aider"
+[ -f "$SCRIPT_DIR/.env" ] && . "$SCRIPT_DIR/.env"
 [ -x "$HOME/.local/bin/aider" ] || {
     python3 -m venv "$SCRIPT_DIR/venv"
     "$SCRIPT_DIR/venv/bin/pip" install --upgrade pip

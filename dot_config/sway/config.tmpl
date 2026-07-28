@@ -43,13 +43,13 @@ client.focused_inactive #333333 #1a1a1a    #888888  #333333   #333333
 ### Tastenkürzel: Anwendungsstarter (Springt zum Ziel-Workspace & startet App)
 bindsym $mod+e exec swaymsg "workspace number 1; exec flatpak run org.mozilla.firefox"
 bindsym $mod+q exec swaymsg "workspace number 2; exec $term"
-bindsym $mod+j exec swaymsg "workspace number 3; exec foot -a foot-nvim -e tmux new-session nvim"
+bindsym $mod+v exec swaymsg "workspace number 3; exec foot -a foot-nvim -e tmux new-session nvim"
 bindsym $mod+f exec swaymsg "workspace number 4; exec thunar"
 
 ### Tastenkürzel: Anwendungsstarter (Auf aktuellem Workspace starten)
 bindsym $mod+Shift+e exec flatpak run org.mozilla.firefox
 bindsym $mod+Shift+q exec foot
-bindsym $mod+Shift+j exec foot -e nvim
+bindsym $mod+Shift+v exec foot -e nvim
 
 ### Tastenkürzel: System & Dienstprogramme
 bindsym $mod+c kill # Fenster schließen
@@ -58,7 +58,7 @@ bindsym $mod+c kill # Fenster schließen
 bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh # Anwendungsmenü (Rofi)
 bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh # Tmux Session Picker
 # Interaktives Hilfesystem
-bindsym $mod+h exec ~/.config/sway/scripts/keybind_help_page_drun-launcher.sh # Tastenkürzel-Hilfemenü
+bindsym $mod+i exec ~/.config/sway/scripts/keybind_help_page_drun-launcher.sh # Tastenkürzel-Hilfemenü
 
 ## Screenshot Skripte
 bindsym $mod+Shift+Print exec ~/.config/sway/scripts/screenshot/screenshot-ocr.sh # mod shift print 
@@ -80,28 +80,28 @@ bindsym $mod+Shift+p exec ~/.config/sway/scripts/send_print_command_drugga.sh # 
 bindsym --whole-window $mod+button2 exec ~/.config/sway/scripts/toggle-magnification.sh # Bildschirm-Lupe umschalten
 
 ## Navigation & Fensterbewegung innerhalb des Workspaces
-bindcode $mod+Shift+113 move left
-bindcode $mod+Shift+116 move down
-bindcode $mod+Shift+111 move up
-bindcode $mod+Shift+114 move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
-bindsym $mod+Left focus left   # Fokus nach links
-bindsym $mod+Down focus down   # Fokus nach unten
-bindsym $mod+Up focus up       # Fokus nach oben
-bindsym $mod+Right focus right # Fokus nach rechts
+bindsym $mod+h focus left   # Fokus nach links
+bindsym $mod+j focus down   # Fokus nach unten
+bindsym $mod+k focus up     # Fokus nach oben
+bindsym $mod+l focus right  # Fokus nach rechts
 
-#bindsym $mod+Shift+Left move left   # Kachel nach links tauschen
-#bindsym $mod+Shift+Down move down   # Kachel nach unten tauschen
-#bindsym $mod+Shift+Up move up       # Kachel nach oben tauschen
-#bindsym $mod+Shift+Right move right # Kachel nach rechts tauschen
+#bindsym $mod+Shift+h move left   # Kachel nach links tauschen
+#bindsym $mod+Shift+j move down   # Kachel nach unten tauschen
+#bindsym $mod+Shift+k move up     # Kachel nach oben tauschen
+#bindsym $mod+Shift+l move right  # Kachel nach rechts tauschen
 
 ## Größe anpassen (Resize Modus)
 bindsym $mod+r mode "resize"
 mode "resize" {
-    bindsym Left resize shrink width 10 px
-    bindsym Right resize grow width 10 px
-    bindsym Up resize shrink height 10 px
-    bindsym Down resize grow height 10 px
+    bindsym h resize shrink width 10 px
+    bindsym l resize grow width 10 px
+    bindsym k resize shrink height 10 px
+    bindsym j resize grow height 10 px
     
     bindsym Return mode "default"
     bindsym Escape mode "default"

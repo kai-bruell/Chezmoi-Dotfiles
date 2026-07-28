@@ -2,8 +2,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # AI and Keys
-#
-export GEMINI_API_KEY="{{ .gemini_api_key }}"
+[ -f "$HOME/.config/aider/.env" ] && source "$HOME/.config/aider/.env"
 alias aider="$HOME/.config/aider/run.sh"
 
 # Theme
