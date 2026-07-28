@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -euo pipefail
+
+CONF_FILE="/etc/systemd/logind.conf.d/ignore-suspend-key.conf"
+
+if [ -f "$CONF_FILE" ]; then
+    exit 0
+fi
+
+CONTENT="[Login]
+HandleSuspendKey=ignore
+HandleSuspendKeyLongPress=ignore"
+
+if command -v pkexec &>/dev/null; then
+    pkexec mkdir -p /etc/systemd/logind.conf.d
+    printf '%s\n' "$CONTENT" | pkexec tee "$CONF_FILE" >/dev/null
+    pkexec systemctl restart systemd-logind
+elif command -v sudo &>/dev/null; then
+    sudo mkdir -p /etc/systemd/logind.conf.d
+    printf '%s\n' "$CONTENT" | sudo tee "$CONF_FILE" >/dev/null
+    sudo systemctl restart systemd-logind
+else
+    cat >&2 <<'EOF'
+Can't write /etc/systemd/logind.conf.d/ignore-suspend-key.conf – no pkexec or sudo available.
+Run this manually:
+
+  sudo mkdir -p /etc/systemd/logind.conf.d
+  cat | sudo tee /etc/systemd/logind.conf.d/ignore-suspend-key.conf << 'CONF'
+[Login]
+HandleSuspendKey=ignore
+HandleSuspendKeyLongPress=ignore
+CONF
+  sudo systemctl restart systemd-logind
+EOF
+    exit 1
+fi
