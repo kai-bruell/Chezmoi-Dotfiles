@@ -54,6 +54,9 @@ bindsym $mod+Shift+v exec foot -e nvim
 ### Tastenkürzel: System & Dienstprogramme
 bindsym $mod+c kill # Fenster schließen
 
+# Fn+W (Arrow Up) sendet KEY_SLEEP – blockieren, damit Rechner nicht einschläft
+bindsym XF86Sleep nop
+
 ## Rofi Skripte
 bindsym $mod+s exec ~/.config/sway/scripts/drun-launcher.sh # Anwendungsmenü (Rofi)
 bindsym $mod+w exec ~/.config/sway/scripts/tmux-session-picker.sh # Tmux Session Picker
