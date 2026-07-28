@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Fix Endorfy Thock Fn-keys on Linux (hid_apple driver quirk)
+# Sets fnmode=2 so F1-F12 work as F-keys instead of media keys.
+
+CONFIG="/etc/modprobe.d/hid_apple.conf"
+
+if [[ ! -f "$CONFIG" ]] || ! grep -q "fnmode=2" "$CONFIG"; then
+    printf 'options hid_apple fnmode=2\n' | sudo tee "$CONFIG" >/dev/null
+fi
+
+# Apply immediately if module is loaded
+if lsmod | grep -q "^hid_apple"; then
+    echo 2 | sudo tee /sys/module/hid_apple/parameters/fnmode >/dev/null
+fi
