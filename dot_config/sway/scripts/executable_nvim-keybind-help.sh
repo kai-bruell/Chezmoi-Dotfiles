@@ -21,5 +21,5 @@ get_entries() {
 entry=$(rofi_browse "$APP")
 [ -z "$entry" ] && exit 0
 key=$(rofi_extract_key "$entry")
-line=$(grep -nF "-- cmd: ${key} |" "$CONFIG" | head -1 | cut -d: -f1)
+line=$(grep -nF -- "-- cmd: ${key} |" "$CONFIG" | head -1 | cut -d: -f1)
 rofi_handle_entry "$entry" "$line" "$APP" "$CONFIG"

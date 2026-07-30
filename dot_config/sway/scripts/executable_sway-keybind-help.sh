@@ -23,6 +23,6 @@ get_entries() {
 entry=$(rofi_browse "$APP")
 [ -z "$entry" ] && exit 0
 key=$(rofi_extract_key "$entry")
-line=$(grep -n "bindsym[[:space:]]\+$key\([[:space:]]\|$\)" "$CONFIG" | head -1 | cut -d: -f1)
+line=$(grep -n -- "bindsym[[:space:]]\+$key\([[:space:]]\|$\)" "$CONFIG" | head -1 | cut -d: -f1)
 [ -z "$line" ] && line=$(grep -n "^[[:space:]]*$key[[:space:]]" "$CONFIG" | head -1 | cut -d: -f1)
 rofi_handle_entry "$entry" "$line" "$APP" "$CONFIG"
