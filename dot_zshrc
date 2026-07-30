@@ -1,3 +1,8 @@
+# Autocomplete für opencode initialisieren
+if command -v opencode &> /dev/null; then
+  source <(opencode completion zsh)
+fi
+
 # Path to oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
 

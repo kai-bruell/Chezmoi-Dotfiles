@@ -1,0 +1,6 @@
+[Unit]
+Description=Export installed Flatpaks and sync to Git
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/update-flatpaks.sh
