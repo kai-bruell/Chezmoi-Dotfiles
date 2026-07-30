@@ -1,4 +1,10 @@
--- [[BLOCK: General]]
+-- [[BLOCK: File Operations]]
+-- cmd: <C-s>   | desc: Datei speichern
+-- cmd: <C-q>   | desc: Puffer schließen
+-- cmd: <C-S-q> | desc: Alle Puffer schließen
+vim.keymap.set("n", "<C-s>", ":w<CR>", { noremap = true })
+vim.keymap.set("n", "<C-q>", ":q<CR>", { noremap = true })
+vim.keymap.set("n", "<C-S-q>", ":qa<CR>", { noremap = true })
 -- [[/BLOCK]]
 
 -- Zeilennummern
