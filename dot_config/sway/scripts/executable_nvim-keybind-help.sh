@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source "$(dirname "$0")/rofi-pager.sh"
+src="$(dirname "$0")/rofi-pager.sh"; [ -f "$src" ] || src="$(dirname "$0")/executable_rofi-pager.sh"; source "$src"
 
 CONFIG_FILE="$HOME/.config/nvim/init.lua"
 
