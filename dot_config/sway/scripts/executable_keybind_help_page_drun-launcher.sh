@@ -16,7 +16,7 @@ categories=$(awk '
 
 [ -z "$categories" ] && exit 0
 
-selected_cat=$(echo "$categories" | rofi -dmenu -i -p "Sway Keybindings" -theme "$THEME")
+selected_cat=$(echo "$categories" | rofi -dmenu -i -p "Sway Keybindings" -kb-accept-entry "Alt+l,Control+j,Control+m,Return" -theme "$THEME")
 [ -z "$selected_cat" ] && exit 0
 
 entries=$(awk -v cat="$selected_cat" '
@@ -44,15 +44,15 @@ entries=$(awk -v cat="$selected_cat" '
 
 [ -z "$entries" ] && exec "$0"
 
-selected_line=$(echo "$entries" | awk -F'\t' '{print $2 " │ " $3}' | rofi -dmenu -i -p "$selected_cat" -theme "$THEME")
+selected_line=$(echo "$entries" | awk -F'\t' '{print $2 " │ " $3}' | rofi -dmenu -i -p "$selected_cat" -kb-custom-1 "Alt+h" -kb-accept-entry "Alt+l,Control+j,Control+m,Return" -theme "$THEME")
 exit_code=$?
-[ $exit_code -eq 1 ] && exec "$0"
+[ $exit_code -eq 10 ] && exec "$0"
 [ -z "$selected_line" ] && exit 0
 
 binding_text=$(echo "$selected_line" | awk -F'│' '{print $1}' | xargs)
 line_num=$(echo "$entries" | grep -F "$binding_text" | head -n1 | awk -F'\t' '{print $1}')
 
-action=$(printf "1. Copy Keybinding\n2. Open in Nvim (Line %s)" "$line_num" | rofi -dmenu -i -p "Action" -theme "$THEME")
+action=$(printf "1. Copy Keybinding\n2. Open in Nvim (Line %s)" "$line_num" | rofi -dmenu -i -p "Action" -kb-accept-entry "Alt+l,Control+j,Control+m,Return" -theme "$THEME")
 [ -z "$action" ] && exit 0
 
 case "$action" in
