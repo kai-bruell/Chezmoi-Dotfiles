@@ -1,6 +1,9 @@
+-- [[BLOCK: General]]
+-- [[/BLOCK]]
+
 -- Zeilennummern
-vim.opt.relativenumber = true  -- Relative Zeilennummern
-vim.opt.number = true          -- Absolute Nummer auf aktueller Zeile
+vim.opt.relativenumber = true
+vim.opt.number = true
 
 -- Schwarzer Hintergrund
 vim.opt.background = 'dark'
@@ -14,7 +17,6 @@ vim.cmd('highlight StatusLineNC guibg=#2a2a2a guifg=#808080 ctermbg=NONE ctermfg
 
 vim.cmd('colorscheme habamax')
 
-
 -- Clipboard Support
 vim.opt.clipboard = "unnamedplus"
 
@@ -22,8 +24,8 @@ vim.opt.clipboard = "unnamedplus"
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "json",
   callback = function()
-    vim.opt_local.tabstop = 2      -- Ein Tab zählt als 2 Leerzeichen
-    vim.opt_local.shiftwidth = 2   -- Einrückung mit > oder < beträgt 2 Leerzeichen
-    vim.opt_local.expandtab = true  -- Wandelt Tabs in Leerzeichen um
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.expandtab = true
   end,
 })
