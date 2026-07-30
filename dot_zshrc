@@ -1,3 +1,5 @@
+export PATH="$HOME/.opencode/bin:$PATH"
+
 # Autocomplete für opencode initialisieren
 if command -v opencode &> /dev/null; then
   source <(opencode completion zsh)
