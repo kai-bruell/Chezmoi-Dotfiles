@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 src="$(dirname "$0")/rofi-pager.sh"; [ -f "$src" ] || src="$(dirname "$0")/executable_rofi-pager.sh"; source "$src"
 
-CONFIG="$HOME/.config/nvim/init.lua"
+CONFIG="$HOME/.config/nvim/lua/keymaps.lua"
 APP="Nvim"
 
 get_categories() {
