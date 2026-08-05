@@ -1,3 +1,5 @@
+# OpenCode Configs
+export OPENCODE_AUTO_UPDATE=false
 export PATH="$HOME/.opencode/bin:$PATH"
 
 # Autocomplete für opencode initialisieren
